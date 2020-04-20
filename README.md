@@ -61,7 +61,7 @@ or
 4. Then inside our package.json I'll add two scripts. The first one will be lint and the other one lint:fix to fix anything.
 ```
   "lint": "eslint .",
-  "lint": "eslint . --fix"
+  "lint:fix": "eslint . --fix"
 
 ```
 5. Now I can run the lint but if we run it we will see a few erros that could be an error or not depending of the custom style that you will follow, nevertheless you can change that configuration in your config file that is called .eslint.json if you had choose a JSON file. The default value is "extends": "airbnb" but we can use other properties to overwrite them. For example we can allow js files instead of just jsx:
@@ -123,8 +123,13 @@ or
 ```
 7. Above the script property let's add the following
 ```
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "lint-staged": {
-    "*.js": ["yarn run format-code", "git add"]
+    "*.js": ["yarn run format-code"]
   },
 ```
 
@@ -138,6 +143,16 @@ or
 4. And then something I like to add in the same place (cmd + ,) but for the workspaces is two things to true. 
 ```
   "editor.formatOnSave": true,
+```
+5. The problem here is that everytime we save the file will be updated with prettifier but the eslint won't run, so in order to fix that we can use eslint-config-prettier that is a config that disables rules that conflict with Prettier. We should add it to our devDependencies, then extend from it within our .eslintrc configuration. Make sure to put it last in the extends array, so it gets the chance to override other configs.
+```
+  yarn add --dev eslint-config-prettier
+```
+Then in .eslintrc.json:
+```
+{
+  "extends": ["prettier"]
+}
 ```
 
 ## Extensions for Visual Studio Code and React Native development
