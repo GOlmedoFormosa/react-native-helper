@@ -177,3 +177,4 @@ Then in .eslintrc.json:
   react-native run-android --variant=release
 ```
 9. And if you have an error with the release version in Android that is usually solved removing the debug version from the device and running the previous command again.
+
