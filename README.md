@@ -160,6 +160,8 @@ Then in .eslintrc.json:
 - React-Native/React/Redux snippets for es6/es7 - from EQuimper. 
 
 ## Organizing your React Native project
+1. First go to your project folder and create a App folder with an index.js.
+2. Move all from the App.js to the index.js that we created in the previous step.
 
 ## Run App in Production Mode 
 1. Open your ios project using xcode.
@@ -178,3 +180,28 @@ Then in .eslintrc.json:
 ```
 9. And if you have an error with the release version in Android that is usually solved removing the debug version from the device and running the previous command again.
 
+## Configure Storybook 
+1. For the purpose of installing this package we need to run the following command
+```
+  npx -p @storybook/cli sb init
+```
+2. After that go to your App.js or your index.js and remove all the code and add the next export
+```
+   export default from './storybook'; 
+```
+3. The first command that we ran added a command inside our package.json file along with a few dev dependencies.
+```
+  "storybook": "storybook start"
+```
+4. Then going back to our project folder we will see a new folder called "storybook" at the root, and inside it has an index.js that is the entry file, we will habe a few addons, another folder called stories which will have a few examples of components.
+5. We can run two commands in the same folder in oder to know if storybooks is working.
+```
+  yarn run storybook
+```
+and then
+```
+  react-native start
+```
+(don't forget refresh the simulator to see the changes)
+6. And then if I go to localhost:7007 we will se we have different stories and those stories are actually align it with the samples components that we found in the "stories" folder inside our "storybook" folder at the root.
+7. Now that we know that storybook is working, we can go inside storybook -> index.js and comment "require('./stories');" and actually delete the entire "stories" directory to start build our component library.
